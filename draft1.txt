@@ -1,0 +1,9 @@
+H:Test Draft:Standard
+D:Joe:Guest
+C:Luis:Scott-Vargas
+C:Test:Test
+D:Aaron:Swanson
+C:Pascal:Maynard
+D:Calvin:Amering
+C:Kelvin:Chew
+D:Jason:Peown
