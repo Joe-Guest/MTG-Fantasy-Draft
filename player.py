@@ -12,19 +12,19 @@ class player:
   #All players must have a first name, last name, and team 
   def __init__(self, firstName, lastName, team=None):
     
-	self.firstName = firstName
-	self.lastName = lastName
+    self.firstName = firstName
+    self.lastName = lastName
 	
-	self.winPoints = 3
-	self.drawPoints = 1
+    self.winPoints = 3
+    self.drawPoints = 1
     
-	if team is None:
+    if team is None:
 	  
-	  self.team = []
+      self.team = []
     
-	else:
+    else:
 	  
-	  self.team = team
+      self.team = team
   
   #Returns the first and last name of the player
   def fullName(self):
@@ -39,22 +39,22 @@ class player:
   #Adds a win to individual wins
   def win(self):
     
-	self.matches += 1
-	self.wins += 1
-	self.addPoints(winPoints)
+    self.matches += 1
+    self.wins += 1
+    self.addPoints(winPoints)
 
   #Adds a draw to individual draws
   def draw(self):
     
-	self.matches += 1
-	self.draws += 1
-	self.addPoints(drawPoints)
+    self.matches += 1
+    self.draws += 1
+    self.addPoints(drawPoints)
 
   #Adds a loss to individual losses	
   def lose(self):
     
-	self.matches += 1
-	self.losses += 1
+    self.matches += 1
+    self.losses += 1
   
   def addPoints(self, points):
     
@@ -72,28 +72,28 @@ class drafter(player):
   
     for member in self.team:
 	  
-	  self.matches += member.matches
-	  self.winsTotal += member.wins
-	  self.drawsTotal += member.draws
-	  self.lossesTotal += member.losses
+      self.matches += member.matches
+      self.winsTotal += member.wins
+      self.drawsTotal += member.draws
+      self.lossesTotal += member.losses
 
 #Method to calculate points based on rank of team members instead of using default point values
   def calcPoints(self, rank):
 	
 	#Platinum or gold hall of famers
-	if rank >= 3:
+    if rank >= 3:
 	  
-	  self.addPoints(stng.platinumWinPoints)
+      self.addPoints(stng.platinumWinPoints)
 	
     #Gold or other hall of famers	
-	elif rank == 2:
+    elif rank == 2:
 	  
-	  self.addPoints(stng.goldWinPoints)
+      self.addPoints(stng.goldWinPoints)
 	
     #Everyone else	
-	else:
+    else:
 	
-	  self.addPoints(stng.otherWinPoints)
+      self.addPoints(stng.otherWinPoints)
 
   #Method to add members to a team
   def addMember(self, member):
@@ -108,18 +108,16 @@ class drafter(player):
   #Overrides default win method so that correct point value can be added
   def win(self, rank):
     
-	self.wins += 1
-	self.calcPoints(rank)
+    self.wins += 1
+    self.calcPoints(rank)
 	
   def printTeam(self):
     
-	for member in self.team:
+    for member in self.team:
 	  
-	  print('-->' + member.fullName())
+      print('-->' + member.fullName())
 
 #Subclass for those competeing in the tournament
-#
-#TODO: Flesh out differences between competitor and drafter
 class competitor(player):
   
   isHoF = False

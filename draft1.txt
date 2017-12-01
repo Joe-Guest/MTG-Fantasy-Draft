@@ -2,6 +2,11 @@ H:Test Draft:Standard
 D:Joe:Guest
 C:Luis:Scott-Vargas
 C:Test:Test
+C:Test:Test1
+C:Test:Test2
+C:Test:Test3
+C:Test:Test4
+C:Test:Test5
 D:Aaron:Swanson
 C:Pascal:Maynard
 D:Calvin:Amering
