@@ -41,14 +41,14 @@ class player:
     
     self.matches += 1
     self.wins += 1
-    self.addPoints(winPoints)
+    self.addPoints(self.winPoints)
 
   #Adds a draw to individual draws
   def draw(self):
     
     self.matches += 1
     self.draws += 1
-    self.addPoints(drawPoints)
+    self.addPoints(self.drawPoints)
 
   #Adds a loss to individual losses	
   def lose(self):
@@ -68,6 +68,7 @@ class drafter(player):
   drawsTotal = 0
   lossesTotal = 0
 
+  #Method to calculate total record as members need two wins per match but drafters only get one
   def calcRecord(self):
   
     for member in self.team:
@@ -110,7 +111,8 @@ class drafter(player):
     
     self.wins += 1
     self.calcPoints(rank)
-	
+
+  #Method to print all members in a drafter's team
   def printTeam(self):
     
     for member in self.team:
@@ -120,6 +122,7 @@ class drafter(player):
 #Subclass for those competeing in the tournament
 class competitor(player):
   
+  #Competitors also have a rank and a hall of fame status which will be used to calculate drafter points
   def __init__(self, firstName, lastName, team=None, rank=0, isHoF=False):
     
     super().__init__(firstName, lastName, team)
@@ -140,5 +143,3 @@ class competitor(player):
     
       self.isHoF = isHoF
       rank += 1
-  
-	
