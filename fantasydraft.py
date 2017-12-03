@@ -1,6 +1,7 @@
 import datetime
 from draft import draft
 from player import player, drafter, competitor
+import config as stng
 
 draftList = []
 
@@ -45,8 +46,27 @@ def makeDraft():
   print('\nCreating new draft')
   
   newDraft = draft(name, format, date, None)
+  draftList.append(newDraft)
   
   print('\nDraft created!')
+  
+  addDrafters(newDraft)
+    
+  yesno = input('\nAdd players to teams now? [y/n]: ')
+  
+  if yesno.lower() == 'y' or yesno.lower() == 'yes':
+  
+    addCompetitors(newDraft)
+
+  yesno = input('\n Would you like to save this draft? y/n: ')	
+  
+  if yesno.lower() == 'y' or yesno.lower() == 'yes':
+
+    saveDraft(newDraft)
+
+  testDraft(newDraft)
+  
+def addDrafters(dft):
   
   numDrafters = int(input('\nHow many people will be drafting?: '))
   
@@ -61,22 +81,40 @@ def makeDraft():
     print('___________________________________________')
 	
     newDrafter = drafter(first, last, None)
-    newDraft.addDrafter(newDrafter)
-
-  yesno = input('\n Would you like to save this draft? y/n: ')	
+    dft.addDrafter(newDrafter)
   
-  if yesno.lower() == 'y' or yesno.lower() == 'yes':
-
-    saveDraft(newDraft)
-  """
-  yesno = input('\nAdd players to teams now? [y/n]: ')
+def addCompetitors(dft):
   
-  if yesno.lower() == 'y' or yesno.lower() == 'yes':
-  """  
+  numMembers = int(input('\nHow many members are on a team? [Default 8]: '))
+  
+  print('\n____________\n')
+  print('Create Teams')
+  print('____________\n')
     
+  for drafter in dft.drafters:
+    
+    print('Creating team for ' + drafter.fullName() + ':\n')
+    
+    for x in range(0, numMembers):
+      
+      first = input('Enter competitor ' + str(x+1) + '\'s first name: ')
+      last = input('Enter competitor ' + str(x+1) + '\'s last name: ')
+      team = input('Enter ' + first + ' ' + last + '\'s team name: ')
+      rank = input('Enter  ' + first + ' ' + last + '\'s rank [Platinum = 3, Gold = 2, Other = 1: ')
+      yesno = input('Is  ' + first + ' ' + last + ' in the Hall of Fame? [y/n]: ')
+        
+      if yesno.lower() == 'y' or yesno.lower() == 'yes':
+        
+        HoF = True  
 
-  testDraft(newDraft)
-  
+      else:
+
+        HoF = False  
+        
+      print('___________________________________________')
+        
+      newCompetitor = competitor(first, last, team, rank, HoF)
+      drafter.addMember(newCompetitor)
 
 #Method to import draft from file
 def importDraft(file):
@@ -86,13 +124,13 @@ def importDraft(file):
   draftInfo = draftFile.readlines()
   
   #Gets the first line of the file and the date to set up a new draft
-  id,name,format = draftInfo[0].split(':')
-  date = str(datetime.date.today())
-  
+  name,format,date = draftInfo[0].split(':')
+
   #Instantiates a new draft
   importDraft = draft(name, format, date, None)
   
   #Sends the new draft and draft info to create the list of drafters and competitors
+  del draftInfo[0]
   readPlayers(importDraft, draftInfo)
   
   #Adds the new draft to the master draft list
@@ -121,14 +159,15 @@ def readPlayers(dft, data):
 	#Checks if a lline contains information about a competitor and adds them to the current drafters team list
     elif id == 'C':
 	  
-      newCompetitor = competitor(first, last, None)
+      newCompetitor = competitor(first, last, None, False, 0)
       newDrafter.addMember(newCompetitor)
+
 def saveDraft(dft):
   
   file = input('Enter name to save as: ') + '.txt'
   draftFile = open(file, 'w')
   
-  draftFile.write('H:' + dft.name + ':' + dft.format +'\n')
+  draftFile.write(dft.name + ':' + dft.format + ':' + dft.date + '\n')
   
   for drafter in dft.drafters:
   

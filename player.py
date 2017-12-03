@@ -120,6 +120,25 @@ class drafter(player):
 #Subclass for those competeing in the tournament
 class competitor(player):
   
-  isHoF = False
-  rank = 0
+  def __init__(self, firstName, lastName, team=None, rank=0, isHoF=False):
+    
+    super().__init__(firstName, lastName, team)
+    
+    if rank == 0:
+    
+      self.rank = 0
+    
+    else:
+      
+      self.rank = rank
+      
+    if isHoF == False:
+    
+      self.isHoF = False
+      
+    else:
+    
+      self.isHoF = isHoF
+      rank += 1
+  
 	
