@@ -9,4 +9,5 @@ draft.py creates a draft object that contains a list of all drafters in the tour
 
 player.py creates a player object and contains two subclasses: drafter and competitor. A drafter has a team which is a list containing all of the competitors they've drafted. A competitor has a rank and a hall of fame status which affects how many points are awarded to a drafter for having that competitor on their team.
 
+Written in Python 3
 Required dependencies: pandas, bs4, htmllib5, requests
